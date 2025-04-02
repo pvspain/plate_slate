@@ -6,6 +6,8 @@ defmodule PlateSlate.Menu.ItemTag do
     field :name, :string
     field :description, :string
 
+    many_to_many(:items, PlateSlate.Menu.Item, join_through: "items_taggings")
+
     timestamps(type: :utc_datetime)
   end
 
@@ -13,6 +15,6 @@ defmodule PlateSlate.Menu.ItemTag do
   def changeset(item_tag, attrs) do
     item_tag
     |> cast(attrs, [:description, :name])
-    |> validate_required([:description, :name])
+    |> validate_required([:name])
   end
 end

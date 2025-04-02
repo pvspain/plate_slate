@@ -6,6 +6,8 @@ defmodule PlateSlate.Menu.Category do
     field :name, :string
     field :description, :string
 
+    has_many :items, PlateSlate.Menu.Item
+
     timestamps(type: :utc_datetime)
   end
 
@@ -13,6 +15,6 @@ defmodule PlateSlate.Menu.Category do
   def changeset(category, attrs) do
     category
     |> cast(attrs, [:description, :name])
-    |> validate_required([:description, :name])
+    |> validate_required([:name])
   end
 end
