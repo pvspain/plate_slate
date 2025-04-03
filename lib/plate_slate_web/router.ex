@@ -5,8 +5,16 @@ defmodule PlateSlateWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", PlateSlateWeb do
+  scope "/" do
     pipe_through :api
+
+    forward "/api", Absinthe.Plug,
+    schema: PlateSlateWeb.Schema
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+    schema: PlateSlateWeb.Schema,
+    interface: :simple
+
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
