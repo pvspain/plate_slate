@@ -11,6 +11,12 @@ defmodule PlateSlateWeb.Schema do
       # arg(:order, type: :sort_order, default_value: :asc)
       resolve(&Resolvers.Menu.menu_items/3)
     end
+
+    field :categories, list_of(:category) do
+      arg(:matching, :string)
+      arg(:order, :sort_order, default_value: :asc)
+      resolve(&Resolvers.Menu.categories/3)
+    end
   end
 
   object :menu_item do
@@ -62,5 +68,10 @@ defmodule PlateSlateWeb.Schema do
     serialize(fn date ->
       Date.to_iso8601(date)
     end)
+  end
+
+  object :category do
+    field :name, :string
+    field :description, :string
   end
 end
