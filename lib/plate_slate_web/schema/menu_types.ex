@@ -39,6 +39,10 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
   object :category do
     field :name, :string
     field :description, :string
+
+    field :items, list_of(:menu_item) do
+      resolve(&Resolvers.Menu.items_for_category/3)
+    end
   end
 
   @desc "Client menu query field definitions"

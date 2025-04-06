@@ -30,6 +30,58 @@ defmodule PlateSlateWeb.Schema.Query.CategoriesTest do
 
   @query """
   {
+    categories {
+      name
+      items {
+        name
+      }
+    }
+  }
+  """
+
+  test "categories field returns categories and associated menu items" do
+    conn = build_conn()
+    conn = get conn, "/api", query: @query
+
+    assert json_response(conn, 200) == %{
+             "data" => %{
+               "categories" => [
+                 %{
+                   "name" => "Beverages",
+                   "items" => [
+                     %{"name" => "Water"},
+                     %{"name" => "Soft Drink"},
+                     %{"name" => "Lemonade"},
+                     %{"name" => "Masala Chai"},
+                     %{"name" => "Vanilla Milkshake"},
+                     %{"name" => "Chocolate Milkshake"}
+                   ]
+                 },
+                 %{
+                   "name" => "Sandwiches",
+                   "items" => [
+                     %{"name" => "Reuben"},
+                     %{"name" => "Croque Monsieur"},
+                     %{"name" => "Muffuletta"},
+                     %{"name" => "Bánh mì"},
+                     %{"name" => "Vada Pav"}
+                   ]
+                 },
+                 %{
+                   "name" => "Sides",
+                   "items" => [
+                     %{"name" => "French Fries"},
+                     %{"name" => "Papadum"},
+                     %{"name" => "Pasta Salad"}
+                   ]
+                 }
+               ]
+             }
+           }
+  end
+
+  @query """
+  {
     categories(matching: "d") {
       name
     }
