@@ -74,4 +74,19 @@ defmodule PlateSlateWeb.Schema do
     field :name, :string
     field :description, :string
   end
+
+  scalar :email do
+    parse(fn input ->
+      with %Absinthe.Blueprint.Input.String{value: value} <- input,
+           [username, domain] <- String.split(value, "@") do
+        {:ok, {username, domain}}
+      else
+        _ -> :error
+      end
+    end)
+
+    serialize(fn {username, domain} ->
+      "#{username}@#{domain}"
+    end)
+  end
 end
