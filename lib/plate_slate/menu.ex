@@ -32,6 +32,10 @@ defmodule PlateSlate.Menu do
     end)
   end
 
+  def list_categories() do
+    Repo.all(Category)
+  end
+
   @doc """
   Gets a single category.
 
@@ -232,6 +236,10 @@ defmodule PlateSlate.Menu do
         query |> filter_with(filter)
     end)
     |> Repo.all()
+  end
+
+  def list_items() do
+    Repo.all(Item)
   end
 
   defp filter_with(query, filter) do
