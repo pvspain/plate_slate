@@ -58,5 +58,20 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
       arg(:order, :sort_order, default_value: :asc)
       resolve(&Resolvers.Menu.categories/3)
     end
+
+    field :search, list_of(:search_result) do
+      arg(:matching, non_null(:string))
+      resolve(&Resolvers.Menu.search/3)
+    end
+  end
+
+  union :search_result do
+    types([:menu_item, :category])
+
+    resolve_type(fn
+      %PlateSlate.Menu.Item{}, _ -> :menu_item
+      %PlateSlate.Menu.Category{}, _ -> :category
+      _, _ -> nil
+    end)
   end
 end
