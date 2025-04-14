@@ -35,4 +35,17 @@ defmodule PlateSlateWeb.Schema.CustomTypes do
       "#{username}@#{domain}"
     end)
   end
+
+  scalar :decimal do
+    parse(fn input ->
+      with %Absinthe.Blueprint.Input.String{value: value} <- input,
+           decimal <- Decimal.new(value) do
+        {:ok, decimal}
+      else
+        _ -> :error
+      end
+    end)
+
+    serialize(fn decimal -> Decimal.to_string(decimal, :normal) end)
+  end
 end

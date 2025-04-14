@@ -7,4 +7,8 @@ defmodule PlateSlateWeb.Schema do
   query do
     import_fields(:menu_queries)
   end
+
+  mutation do
+    import_fields(:menu_mutations)
+  end
 end

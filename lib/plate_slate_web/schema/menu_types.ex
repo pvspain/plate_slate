@@ -33,6 +33,7 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
     field :id, :id
     field :name, :string
     field :description, :string
+    field :price, :decimal
     field :added_on, :date
   end
 
@@ -75,5 +76,29 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
       %PlateSlate.Menu.Category{}, _ -> :category
       _, _ -> nil
     end)
+  end
+
+  input_object :menu_item_input do
+    field :name, non_null(:string)
+    field :description, :string
+    field :price, non_null(:decimal)
+    field :category_id, non_null(:id)
+  end
+
+  input_object :category_input do
+    field :name, non_null(:string)
+    field :description, :string
+  end
+
+  object :menu_mutations do
+    field :create_menu_item, :menu_item do
+      arg(:input, non_null(:menu_item_input))
+      resolve(&Resolvers.Menu.create_item/3)
+    end
+
+    field :create_category, :category do
+      arg(:input, non_null(:category_input))
+      resolve(&Resolvers.Menu.create_category/3)
+    end
   end
 end

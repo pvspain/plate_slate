@@ -1,0 +1,16 @@
+mutation ($menuItem: MenuItemInput!) {
+	createMenuItem(input: $menuItem) {
+		name
+		description
+		price
+    }
+}
+
+{
+    "menuItem": {
+        "name": "French Dip",
+        "description": "Roast beef, caramelised onions, horseradish...",
+        "price": "5.75",
+        "categoryId": 1
+    }
+}
