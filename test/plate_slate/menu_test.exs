@@ -137,7 +137,8 @@ defmodule PlateSlate.MenuTest do
         name: "some name",
         description: "some description",
         added_on: ~D[2025-04-01],
-        price: "120.5"
+        price: "120.5",
+        category_id: PlateSlate.MenuFixtures.category_fixture().id
       }
 
       assert {:ok, %Item{} = item} = Menu.create_item(valid_attrs)

@@ -44,7 +44,8 @@ defmodule PlateSlate.MenuFixtures do
         added_on: ~D[2025-04-01],
         description: "some description",
         name: "some name",
-        price: "120.5"
+        price: "120.5",
+        category_id: category_fixture().id
       })
       |> PlateSlate.Menu.create_item()
 
